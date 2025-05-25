@@ -1,9 +1,12 @@
-import { auth } from "auth"
+"use client";
 import ClientExample from "@/components/client-example"
 import { SessionProvider } from "next-auth/react"
+import { sessionQueryOptions } from "../_queries/session"
+import { useQuery } from "@tanstack/react-query"
 
-export default async function ClientPage() {
-  const session = await auth()
+export default function ClientPage() {
+  const {data: session} = useQuery(sessionQueryOptions);
+
   if (session?.user) {
     // TODO: Look into https://react.dev/reference/react/experimental_taintObjectReference
     // filter out sensitive data before passing to client.

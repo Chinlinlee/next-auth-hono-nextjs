@@ -1,8 +1,10 @@
+"use client";
 import CustomLink from "@/components/custom-link"
-import { auth } from "auth"
+import { sessionQueryOptions } from "./_queries/session"
+import { useQuery } from "@tanstack/react-query"
 
-export default async function Index() {
-  const session = await auth()
+export default function Index() {
+  const { data: session } = useQuery(sessionQueryOptions);
 
   return (
     <div className="flex flex-col gap-6">
@@ -25,11 +27,11 @@ export default async function Index() {
         to still be available after a few days. It is designed to only
         demonstrate registration, login, and logout briefly.
       </div>
-      <div className="flex flex-col rounded-md bg-gray-100">
-        <div className="rounded-t-md bg-gray-200 p-4 font-bold">
+      <div className="flex flex-col bg-gray-100 rounded-md">
+        <div className="p-4 font-bold bg-gray-200 rounded-t-md">
           Current Session
         </div>
-        <pre className="whitespace-pre-wrap break-all px-4 py-6">
+        <pre className="px-4 py-6 whitespace-pre-wrap break-all">
           {JSON.stringify(session, null, 2)}
         </pre>
       </div>

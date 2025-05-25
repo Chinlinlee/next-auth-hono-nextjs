@@ -1,5 +1,6 @@
-import { signIn, signOut } from "auth"
-import { Button } from "./ui/button"
+"use client";
+import { signIn, signOut } from "@hono/auth-js/react";
+import { Button } from "./ui/button";
 
 export function SignIn({
   provider,
@@ -8,8 +9,7 @@ export function SignIn({
   return (
     <form
       action={async () => {
-        "use server"
-        await signIn(provider)
+        await signIn("github")
       }}
     >
       <Button {...props}>Sign In</Button>
@@ -21,12 +21,11 @@ export function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
   return (
     <form
       action={async () => {
-        "use server"
         await signOut()
       }}
       className="w-full"
     >
-      <Button variant="ghost" className="w-full p-0" {...props}>
+      <Button variant="ghost" className="p-0 w-full" {...props}>
         Sign Out
       </Button>
     </form>

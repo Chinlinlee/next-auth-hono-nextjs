@@ -1,6 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+"use client"
+
+import { Avatar, AvatarImage } from "./ui/avatar"
 import { Button } from "./ui/button"
-import { auth } from "auth"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,19 +10,23 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import { SignIn, SignOut } from "./auth-components"
+import { useQuery } from "@tanstack/react-query"
+import { sessionQueryOptions } from "@/app/_queries/session"
 
-export default async function UserButton() {
-  const session = await auth()
+export default function UserButton() {
+  const { data: session } = useQuery(sessionQueryOptions);
+  
   if (!session?.user) return <SignIn />
+  
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex gap-2 items-center">
       <span className="hidden text-sm sm:inline-flex">
         {session.user.email}
       </span>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-            <Avatar className="h-8 w-8">
+          <Button variant="ghost" className="relative w-8 h-8 rounded-full">
+            <Avatar className="w-8 h-8">
               <AvatarImage
                 src={
                   session.user.image ??
@@ -38,7 +43,7 @@ export default async function UserButton() {
               <p className="text-sm font-medium leading-none">
                 {session.user.name}
               </p>
-              <p className="text-muted-foreground text-xs leading-none">
+              <p className="text-xs leading-none text-muted-foreground">
                 {session.user.email}
               </p>
             </div>

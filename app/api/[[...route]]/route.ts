@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import { env } from "hono/adapter";
 import { authHandler, initAuthConfig, verifyAuth } from "@hono/auth-js";
-import GitHubProvider from "next-auth/providers/github";
+import GitHubProvider from "@auth/core/providers/github";
 
 const app = new Hono()
             .basePath("/api")

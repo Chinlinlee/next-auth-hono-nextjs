@@ -25,6 +25,8 @@
 
 ## Overview
 
+This is an example of the hono + nextjs app router in v4 of next-auth.
+
 NextAuth.js is a complete open source authentication solution.
 
 This is an example application that shows how `next-auth` is applied to a basic Next.js app.
